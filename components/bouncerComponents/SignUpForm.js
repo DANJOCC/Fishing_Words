@@ -1,0 +1,111 @@
+import { StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useState }from 'react'
+import { useValidation } from 'react-simple-form-validator';
+import CustomButtoms from '../generalButtoms/LinkButtoms'
+
+export default function SignUpForm(props) {
+
+  const [username, setUsername]=useState('')
+  const [password, setPassword]=useState('')
+  const [confirmPassword, setConfirmPassword]=useState('')
+  const [tlf, setTlf]=useState('')
+
+  const [user,setUser]=useState({
+    username:false,
+    password:false,
+    confirmPassword:false,
+    tlf:false
+  })
+
+  const {isFieldInError, getErrorsInField, isFormValid}=useValidation({
+    fieldsRules:{
+      username:{maxlength:15, minlength:3, hasSpecialCharacter:false, required:true},
+      password:{minlength:8, hasSpecialCharacter:false, required:true},
+      confirmPassword: {required:true, equalPassword:password},
+      tlf:{required:true}
+    },
+    state:{username,password,confirmPassword, tlf}
+  })
+
+  const handleTouchChanges=(field)=>{
+    setUser({
+      ...user,
+      [field]:true
+    })
+  }
+
+  const handleChanges=(name, value, flag)=>{
+    switch (name) {
+      case 'username':
+        flag? setUsername(value): handleTouchChanges(name)
+        break;
+      case 'password':
+        flag? setPassword(value): handleTouchChanges(name)
+        break;
+      case 'confirmPassword':
+        flag? setConfirmPassword(value): handleTouchChanges(name)
+        break;
+        case 'tlf':
+          flag? setTlf(value): handleTouchChanges(name)
+          break;        
+      default:
+        break;
+    }
+  }
+
+  return (
+    <View>
+      <TextInput style={styles.input} placeholder='Username'
+        value={username}
+        onChangeText={(value)=>{handleChanges('username',value, true)}}
+        onBlur={(value)=>{handleChanges('username',value, false)}}/>
+
+      <Text style={styles.text}>
+        {user.username && isFieldInError('username') && getErrorsInField('username').join('\n') }
+       </Text>
+
+      <TextInput style={styles.input} placeholder='Password'
+        value={password}
+        onChangeText={(value)=>{handleChanges('password',value, true)}}
+        onBlur={(value)=>{handleChanges('password',value, false)}}/>
+
+      <Text style={styles.text}>
+        {user.password && isFieldInError('password') && getErrorsInField('password').join('\n') }
+       </Text>
+
+      <TextInput style={styles.input} placeholder='Confirm Password'
+        value={confirmPassword}
+        onChangeText={(value)=>{handleChanges('confirmPassword',value, true)}}
+        onBlur={(value)=>{handleChanges('confirmPassword',value, false)}}/>
+
+      <Text style={styles.text}>
+        {user.confirmPassword && isFieldInError('confirmPassword') && getErrorsInField('confirmPassword').join('\n') }
+       </Text>
+
+      <TextInput style={styles.input} placeholder='Tlf'
+        value={tlf}
+        keyboardType='phone-pad'
+        onChangeText={(value)=>{handleChanges('tlf',value, true)}}
+        onBlur={(value)=>{handleChanges('tlf',value, false)}}/>
+
+      <Text style={styles.text}>
+        {user.tlf && isFieldInError('tlf') && getErrorsInField('tlf').join('\n') }
+       </Text>
+
+      <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Sing Up' dir='Login' navigation={props.navigation}/>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+    input:{
+        margin:20,
+        padding:10,
+        backgroundColor: 'white',
+        borderRadius:25
+    },
+    text:{
+      marginHorizontal:20,
+      color:'red'
+    }
+})
