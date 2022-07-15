@@ -3,8 +3,8 @@ import React from 'react'
 
 const styles = StyleSheet.create({
     link:{
-        paddingHorizontal: 10,
-        paddingVertical: 25,
+        paddingHorizontal: 20,
+        paddingVertical: 30,
         backgroundColor: '#313638',
         color:'#E8E9EB',
         margin:30,
