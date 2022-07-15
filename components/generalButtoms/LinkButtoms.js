@@ -24,13 +24,13 @@ const CustomButtoms={
             <TouchableOpacity 
              style={styles.link}
              disabled={props.valid !== undefined ? props.valid: false}
-              onPress={()=>props.navigation.navigate(props.dir)}>
+              onPress={props.onPress !== undefined ? props.onPress:()=>props.navigation.navigate(props.dir)}>
 
                 <Text style={styles.text}>{props.text}</Text>
 
             </TouchableOpacity>
         )
-    }
+    },
 }
 
 export default CustomButtoms

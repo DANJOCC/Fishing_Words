@@ -5,6 +5,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Bouncer from './screens/bouncer/Bouncer';
 import Login from './screens/bouncer/Login';
 import SingUp from './screens/bouncer/SingUp';
+import MenuGame from './screens/juego/MenuGame';
+import Profile from './screens/juego/Profile';
 
 const Pages= createNativeStackNavigator()
 
@@ -40,7 +42,20 @@ export default function App() {
             headerShown: false
           }}
         />
-
+          <Pages.Screen 
+          name='MenuGame'
+          component={MenuGame}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Pages.Screen 
+          name='Profile'
+          component={Profile}
+          options={{
+            headerShown: false
+          }}
+        />
       </Pages.Navigator>
     </NavigationContainer>
   );

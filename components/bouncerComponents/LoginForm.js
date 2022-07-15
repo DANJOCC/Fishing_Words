@@ -58,7 +58,7 @@ export default function LoginForm(props) {
             {user.password && isFieldInError('password') && getErrorsInField('password').join('\n') }
         </Text>
 
-        <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Sing Up' dir='Bouncer' navigation={props.navigation}/>    
+        <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Log In' dir='MenuGame' navigation={props.navigation}/>    
     </View>
   )
 }

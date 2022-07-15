@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState }from 'react'
 import { useValidation } from 'react-simple-form-validator';
 import CustomButtoms from '../generalButtoms/LinkButtoms'
+import request from '../../services/request.services';
 
 export default function SignUpForm(props) {
 
@@ -22,7 +23,7 @@ export default function SignUpForm(props) {
       username:{maxlength:15, minlength:3, hasSpecialCharacter:false, required:true},
       password:{minlength:8, hasSpecialCharacter:false, required:true},
       confirmPassword: {required:true, equalPassword:password},
-      tlf:{required:true}
+      tlf:{hasNumber: true,required:true, minlength:10}
     },
     state:{username,password,confirmPassword, tlf}
   })
@@ -92,7 +93,15 @@ export default function SignUpForm(props) {
         {user.tlf && isFieldInError('tlf') && getErrorsInField('tlf').join('\n') }
        </Text>
 
-      <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Sing Up' dir='Login' navigation={props.navigation}/>
+      <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Sing Up'
+      
+        onPress={
+          ()=>{
+            request.singUp({username,password,tlf})
+            props.navigation.navigate('Login')
+          }
+        }
+      />
     </View>
   )
 }
