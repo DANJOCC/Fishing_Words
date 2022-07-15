@@ -2,6 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './app/store';
 import Bouncer from './screens/bouncer/Bouncer';
 import Login from './screens/bouncer/Login';
 import SingUp from './screens/bouncer/SingUp';
@@ -19,6 +21,7 @@ const Pages= createNativeStackNavigator()
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Pages.Navigator>
         <Pages.Screen 
@@ -58,6 +61,7 @@ export default function App() {
         />
       </Pages.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

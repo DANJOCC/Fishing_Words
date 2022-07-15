@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState }from 'react'
 import { useValidation } from 'react-simple-form-validator';
 import CustomButtoms from '../generalButtoms/LinkButtoms'
 import request from '../../services/request.services';
+import alertCustomButtoms from '../generalButtoms/alertButtoms';
 
 export default function SignUpForm(props) {
 
@@ -98,7 +99,19 @@ export default function SignUpForm(props) {
         onPress={
           ()=>{
             request.singUp({username,password,tlf})
-            props.navigation.navigate('Login')
+            .then(response=>{
+              response.status===201 ?
+
+               alertCustomButtoms.alertLink(
+                true,
+                 response.msg
+                 , props.navigation, 'Login') :
+
+                   alertCustomButtoms.alertLink(
+                  false,
+                   response.msg
+                   , props.navigation, 'Bouncer')
+            })
           }
         }
       />

@@ -1,9 +1,14 @@
 import { StyleSheet, Text,TextInput,View } from 'react-native'
 import React, { useState }from 'react'
+import { useDispatch} from 'react-redux'
 import { useValidation } from 'react-simple-form-validator';
 import CustomButtoms from '../generalButtoms/LinkButtoms'
+import request from '../../services/request.services';
+import { getAuth } from '../../features/auth';
+import alertCustomButtoms from '../generalButtoms/alertButtoms';
 
 export default function LoginForm(props) {
+    const dispatch=useDispatch()
     const [username, setUsername]=useState('');
     const [password, setPassword]=useState('');
     const [user,setUser]=useState({
@@ -26,6 +31,10 @@ export default function LoginForm(props) {
         })
       }
     
+    const save=(data)=>{
+      dispatch(getAuth(data))
+    }
+
     const handleChanges=(name, value, flag)=>{
         switch (name) {
           case 'username':
@@ -58,7 +67,25 @@ export default function LoginForm(props) {
             {user.password && isFieldInError('password') && getErrorsInField('password').join('\n') }
         </Text>
 
-        <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Log In' dir='MenuGame' navigation={props.navigation}/>    
+        <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Log In'
+          onPress={()=>{
+            request.logIn({username, password}).then(
+              response=>{
+                if(response.status===200){
+                    save({
+                      token:response.token,
+                      username:response.username
+                    })                  
+
+                  alertCustomButtoms.alertLink(true, response.msg+' '+response.username, props.navigation, 'MenuGame')
+                }
+                else{
+                  alertCustomButtoms.alertLink(false, response.msg, props.navigation, 'Login')
+                }
+              }
+            )
+          }}
+        />    
     </View>
   )
 }
