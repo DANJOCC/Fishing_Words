@@ -1,4 +1,4 @@
-const url='http://192.168.1.103:3000'
+const url='https://fishingwords.herokuapp.com'
 
 const request={
     singUp:async(data)=>{
@@ -25,7 +25,18 @@ const request={
         let responseWithStatus=await response.json()
         responseWithStatus={...responseWithStatus, status:response.status}
         return responseWithStatus
-  }
+  },
+  getProfile:async(username, token)=>{
+    const response = await fetch(url + "/profile?"+new URLSearchParams({username}), {
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + token
+        },
+      });
+      let responseWithStatus=await response.json()
+      responseWithStatus={...responseWithStatus, status:response.status}
+      return responseWithStatus
+}
 
 }
 

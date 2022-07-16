@@ -2,11 +2,13 @@ import { StyleSheet, Text, View , Image} from 'react-native'
 import React from 'react'
 import ProfileView from '../../components/profileComponents/ProfileView'
 import image from '../../utils/images/usuario-de-perfil.png'
+import {useSelector} from 'react-redux'
 export default function Profile() {
+  const profile=useSelector(status=>status.profile)
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}></Image>
-      <Text>Imagen Arrecha</Text>
+      <Text style={styles.text}>{profile.username}</Text>
       <ProfileView/>
     </View>
   )
@@ -24,5 +26,9 @@ const styles = StyleSheet.create({
     margin:10,
     width:200,
     height:200
+  },
+  text:{
+    fontSize:40,
+    margin:40
   }
 })
