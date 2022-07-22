@@ -9,6 +9,7 @@ import Login from './screens/bouncer/Login';
 import SingUp from './screens/bouncer/SingUp';
 import MenuGame from './screens/juego/MenuGame';
 import Profile from './screens/juego/Profile';
+import Room from './screens/juego/Room';
 
 const Pages= createNativeStackNavigator()
 
@@ -55,6 +56,13 @@ export default function App() {
         <Pages.Screen 
           name='Profile'
           component={Profile}
+          options={{
+            headerShown: false
+          }}
+        />
+          <Pages.Screen 
+          name='Room'
+          component={Room}
           options={{
             headerShown: false
           }}
