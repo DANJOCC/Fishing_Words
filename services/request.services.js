@@ -36,6 +36,17 @@ const request={
       let responseWithStatus=await response.json()
       responseWithStatus={...responseWithStatus, status:response.status}
       return responseWithStatus
+},
+getCheckTlf:async(tlf, token)=>{
+  const response = await fetch(dev + "/isRegisterTlf?"+new URLSearchParams({tlf}), {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + token
+      },
+    });
+    let responseWithStatus=await response.json()
+    responseWithStatus={...responseWithStatus, status:response.status}
+    return responseWithStatus
 }
 
 }

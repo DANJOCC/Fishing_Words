@@ -1,7 +1,8 @@
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useState }from 'react'
+import React, { useState,useRef }from 'react'
 import { useValidation } from 'react-simple-form-validator';
 import CustomButtoms from '../generalButtoms/LinkButtoms'
+import PhoneInput from 'react-native-phone-input'
 import request from '../../services/request.services';
 import alertCustomButtoms from '../generalButtoms/alertButtoms';
 
@@ -11,7 +12,7 @@ export default function SignUpForm(props) {
   const [password, setPassword]=useState('')
   const [confirmPassword, setConfirmPassword]=useState('')
   const [tlf, setTlf]=useState('')
-
+  const phoneInput = useRef(undefined);
   const [user,setUser]=useState({
     username:false,
     password:false,
@@ -24,9 +25,8 @@ export default function SignUpForm(props) {
       username:{maxlength:15, minlength:3, hasSpecialCharacter:false, required:true},
       password:{minlength:8, hasSpecialCharacter:false, required:true},
       confirmPassword: {required:true, equalPassword:password},
-      tlf:{hasNumber: true,required:true, minlength:10}
     },
-    state:{username,password,confirmPassword, tlf}
+    state:{username,password,confirmPassword}
   })
 
   const handleTouchChanges=(field)=>{
@@ -48,7 +48,12 @@ export default function SignUpForm(props) {
         flag? setConfirmPassword(value): handleTouchChanges(name)
         break;
         case 'tlf':
-          flag? setTlf(value): handleTouchChanges(name)
+          setUser({
+            ...user,
+            tlf:phoneInput.current.isValidNumber() 
+          })
+          setTlf(value)
+          
           break;        
       default:
         break;
@@ -84,21 +89,21 @@ export default function SignUpForm(props) {
         {user.confirmPassword && isFieldInError('confirmPassword') && getErrorsInField('confirmPassword').join('\n') }
        </Text>
 
-      <TextInput style={styles.input} placeholder='Tlf'
-        value={tlf}
-        keyboardType='phone-pad'
-        onChangeText={(value)=>{handleChanges('tlf',value, true)}}
-        onBlur={(value)=>{handleChanges('tlf',value, false)}}/>
+       <PhoneInput style={styles.input} ref={phoneInput}
+        initialCountry={'VE'} 
+        initialValue='+58' value={tlf}
+         textProps={{placeholder:'Phone Number'} }
+         onChangePhoneNumber={(value)=>{handleChanges('tlf', value, true )}}/>
 
       <Text style={styles.text}>
-        {user.tlf && isFieldInError('tlf') && getErrorsInField('tlf').join('\n') }
+        {!user.tlf && 'phone number is not valid' }
        </Text>
 
-      <CustomButtoms.NormalLinkButtom valid={!isFormValid} text='Sing Up'
+      <CustomButtoms.NormalLinkButtom valid={!isFormValid && user.tlf} text='Sing Up'
       
         onPress={
           ()=>{
-            request.singUp({username,password,tlf})
+            request.singUp({username,password,tlf:sendtlf})
             .then(response=>{
               response.status===201 ?
 

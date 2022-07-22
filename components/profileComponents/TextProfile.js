@@ -15,7 +15,7 @@ export default function TextProfile(props) {
         return {minlength:8, hasSpecialCharacter:false, required:true}
       }
       else if(name==='tlf'){
-        return {hasNumber: true,required:true, minlength:10}
+        return {hasNumber: true,required:true, minlength:10,}
       }
     }
 

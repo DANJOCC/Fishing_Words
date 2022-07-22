@@ -7,6 +7,7 @@ import store from './app/store';
 import Bouncer from './screens/bouncer/Bouncer';
 import Login from './screens/bouncer/Login';
 import SingUp from './screens/bouncer/SingUp';
+import Invite from './screens/juego/Invite';
 import MenuGame from './screens/juego/MenuGame';
 import Profile from './screens/juego/Profile';
 import Room from './screens/juego/Room';
@@ -63,6 +64,13 @@ export default function App() {
           <Pages.Screen 
           name='Room'
           component={Room}
+          options={{
+            headerShown: false
+          }}
+        />
+         <Pages.Screen 
+          name='Invite'
+          component={Invite}
           options={{
             headerShown: false
           }}
