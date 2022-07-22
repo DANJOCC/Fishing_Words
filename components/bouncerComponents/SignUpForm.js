@@ -99,11 +99,11 @@ export default function SignUpForm(props) {
         {!user.tlf && 'phone number is not valid' }
        </Text>
 
-      <CustomButtoms.NormalLinkButtom valid={!isFormValid && user.tlf} text='Sing Up'
+      <CustomButtoms.NormalLinkButtom valid={!isFormValid ? true:!user.tlf} text='Sing Up'
       
         onPress={
           ()=>{
-            request.singUp({username,password,tlf:sendtlf})
+            request.singUp({username,password,tlf:user.tlf})
             .then(response=>{
               response.status===201 ?
 

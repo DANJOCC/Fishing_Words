@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket=io('http://192.168.1.103:3000',{
+const socket=io('https://fishingwords.herokuapp.com',{
     transports: ['websocket'],
     jsonp: false
 })

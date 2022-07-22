@@ -6,7 +6,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 30,
         backgroundColor: '#313638',
-        color:'#E8E9EB',
+        margin:30,
+        borderRadius: 50,
+    },
+    invalidLink:{
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        backgroundColor: '#F06543',
         margin:30,
         borderRadius: 50,
     },
@@ -14,6 +20,11 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize: 25,
         color:'#E8E9EB',
+    },
+    invalidText:{
+        textAlign:'center',
+        fontSize: 25,
+        color:'#313638',
     }
 })
 
@@ -22,11 +33,11 @@ const CustomButtoms={
     NormalLinkButtom:(props)=>{
         return(
             <TouchableOpacity 
-             style={styles.link}
+             style={props.valid !== undefined && props.valid? styles.invalidLink:styles.link}
              disabled={props.valid !== undefined ? props.valid: false}
               onPress={props.onPress !== undefined ? props.onPress:()=>props.navigation.navigate(props.dir)}>
 
-                <Text style={styles.text}>{props.text}</Text>
+                <Text style={props.valid !== undefined && props.valid? styles.invalidText:styles.text}>{props.text}</Text>
 
             </TouchableOpacity>
         )

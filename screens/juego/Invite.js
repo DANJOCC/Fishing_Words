@@ -4,13 +4,14 @@ import PhoneInput from 'react-native-phone-input'
 import request from '../../services/request.services'
 import {useSelector,useDispatch} from 'react-redux'
 import * as SMS from 'expo-sms';
+import CustomButtoms from '../../components/generalButtoms/LinkButtoms'
 export default function Invite(props) {
 
 
     const auth=useSelector(status=>status.auth)
 
     const [tlf, setTlf]=useState('')
-    const [phone, isValid]=useState(true)
+    const [phone, isValid]=useState(false)
     const phoneInput = useRef(undefined);
 
     const handleChange=(value, flag)=>{
@@ -64,30 +65,32 @@ export default function Invite(props) {
         <Text style={styles.text}>Invite your friends</Text>
       <PhoneInput style={styles.input} ref={phoneInput} initialCountry={'VE'} initialValue='+58' value={tlf} placeholder='phone Number' onChangePhoneNumber={(value)=>{handleChange(value, phoneInput.current.isValidNumber() )}}/>
       <Text>Is Valid Number: {phone ? 'Yes' : 'No'}</Text>
-      <Button disabled={!phone} title='enviar' onPress={()=>{
-        request.getCheckTlf(tlf.split('+')[1], auth.token).then(response=>{
-            console.log(response.IsRegister)
-            if(!response.IsRegister){
-                isAvailableToSendSms()
-            }
-            else{
-                Alert.alert(
-                    'Sorry',
-                    'user already have the game install' ,
-                    [
-                        {
-                            text: 'OK',
-                            style:'default',
-                            onPress: ()=>{
-                                    props.navigation.navigate('Invite')
-                            }
-                        },
-                    ]
-        
-                )
-            }
-        })
-      }}/>
+      <CustomButtoms.NormalLinkButtom text='Enviar invitacion' valid={!phone} onPress={
+        ()=>{
+            request.getCheckTlf(tlf.split('+')[1], auth.token).then(response=>{
+                console.log(response.IsRegister)
+                if(!response.IsRegister){
+                    isAvailableToSendSms()
+                }
+                else{
+                    Alert.alert(
+                        'Sorry',
+                        'user already have the game install' ,
+                        [
+                            {
+                                text: 'OK',
+                                style:'default',
+                                onPress: ()=>{
+                                        props.navigation.navigate('Invite')
+                                }
+                            },
+                        ]
+            
+                    )
+                }
+            })
+        }
+      }/>
     </View>
   )
 }

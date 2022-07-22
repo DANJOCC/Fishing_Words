@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection: 'column',
         marginHorizontal: 30,
-        marginTop:300
+        marginTop:250
     },
     text: {
         fontSize: 50,
