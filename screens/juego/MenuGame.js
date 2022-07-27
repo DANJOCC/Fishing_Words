@@ -29,7 +29,7 @@ export default function MenuGame(props) {
 
   return (
     <View style={styles.container}>
-      <CustomButtoms.NormalLinkButtom  text='Crear Sala' dir='Room' navigation={props.navigation}/>
+      <CustomButtoms.NormalLinkButtom  text='Crear Sala' dir='RoomMaker' navigation={props.navigation}/>
       <CustomButtoms.NormalLinkButtom  text='Unirse a Sala' dir='Room' navigation={props.navigation}/>
       <CustomButtoms.NormalLinkButtom  text='Perfil'  onPress={()=>{profile(auth.user, auth.token)}}/>
       <CustomButtoms.NormalLinkButtom  text='Invitar amigos' dir='Invite' navigation={props.navigation}/>

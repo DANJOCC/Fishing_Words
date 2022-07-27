@@ -3,9 +3,10 @@ import io from 'socket.io-client'
 import React, { useEffect, useState } from 'react'
 import socket,{ startSocket } from '../../services/socketIO.services';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 export default function Room() {
     const [isConnected, setIsConnected] = useState(false);
-  
+    const roomConfig=useSelector(state=>state.roomConfig)
   useFocusEffect(
     React.useCallback(()=>{
       startSocket()
@@ -21,7 +22,7 @@ export default function Room() {
         socket.emit('exit')}} title="desconectar"></Button>
         <Button onPress={()=>{
         setIsConnected(true)
-        socket.emit('connected')}} title="conectar"></Button>
+        socket.emit('connected', roomConfig)}} title="conectar"></Button>
     </View>
   )
 }

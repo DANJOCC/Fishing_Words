@@ -11,6 +11,7 @@ import Invite from './screens/juego/Invite';
 import MenuGame from './screens/juego/MenuGame';
 import Profile from './screens/juego/Profile';
 import Room from './screens/juego/Room';
+import RoomMaker from './screens/juego/RoomMaker';
 
 const Pages= createNativeStackNavigator()
 
@@ -71,6 +72,13 @@ export default function App() {
          <Pages.Screen 
           name='Invite'
           component={Invite}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Pages.Screen 
+          name='RoomMaker'
+          component={RoomMaker}
           options={{
             headerShown: false
           }}
