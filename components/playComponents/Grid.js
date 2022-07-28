@@ -6,8 +6,10 @@ export default function Grid({wordTried, tries, turn,length}) {
   return (
     <View style={styles.container}>
       {tries.map((cell,i)=>{
-        console.log(i+10)
-        return <Row key={i} length={length}/>
+        if(turn===i){
+          return <Row key={i} length={length} wordTried={wordTried} tries={cell}/>
+        }
+        return <Row key={i} length={length} tries={cell}/>
       })}
     </View>
   )

@@ -10,6 +10,7 @@ export default function Room() {
     const [isConnected, setIsConnected] = useState(false);
     const {handleKey,wordTried,tries,turn,rigth,currentTry}=useStateGame('teamo')
     const roomConfig=useSelector(state=>state.roomConfig)
+    const [word, setWord]=useState('')
   useFocusEffect(
     React.useCallback(()=>{
       startSocket()
@@ -18,10 +19,21 @@ export default function Room() {
 
   return (
     <View style={styles.container}>
+
       <Text style={styles.text}>Room, {socket.id}</Text>
-      <TextInput onKeyPress={(keyPress)=>handleKey(keyPress.nativeEvent.key)} onSubmitEditing={()=>{wordTried()}}/>
+
+      <TextInput
+      value={word}
+       maxLength={Number(roomConfig.length)}
+        onKeyPress={(keyPress)=>handleKey(keyPress.nativeEvent.key)}
+         onSubmitEditing={()=>{wordTried(); setWord('')}}
+         onChangeText={(value)=>{setWord(value)}}
+         />
+
       <Grid wordTried={currentTry} tries={tries} turn={turn} length={roomConfig.length}/>
+
       <Text>connected: {isConnected? 'yes': 'no'}</Text>
+
       <Button onPress={()=>{
         setIsConnected(false)
         socket.emit('exit')}} title="desconectar"></Button>
