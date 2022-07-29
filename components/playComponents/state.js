@@ -6,7 +6,7 @@ export default (solution) => {
     const [turn, setTurn]=useState(0)//intento
     const [currentTry, setTry]=useState('')//palabra intentada
     const [tries, setTries]=useState([...Array(Number(roomConfig.tries))])//lista de intentos en forma de array
-    const [historial, setHistorial]=useState([])//historial de intentos en forma string
+    const [noTurn, setNoTurn]=useState(false)
     const [rigth, setRigth]=useState(false)//palabra correcta
 
     const saveTry=(wordArray)=>{
@@ -19,20 +19,20 @@ export default (solution) => {
             return newWordArray
         })
         
-        setHistorial((lastWord)=>{
-            return [...lastWord, currentTry]
-        })
         setTurn((lastTurn)=>{
             return lastTurn+1
         })
+        if(turn+1 == roomConfig.tries){
+            setNoTurn(true)
+        }
         setTry('')
       
 
     }    
 
     const wordTried=()=>{
-        console.log(currentTry)
-        if(turn > roomConfig.tries){
+
+        if(turn == roomConfig.tries){
             console.log('you use all your tries')
             return
         }
@@ -80,5 +80,5 @@ export default (solution) => {
         
     }
 
-  return {handleKey,wordTried,tries, turn, rigth, currentTry}
+  return {handleKey,wordTried,tries, turn, rigth, currentTry, noTurn}
 }

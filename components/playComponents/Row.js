@@ -7,7 +7,6 @@ export default function Row({wordTried,tries,length}) {
     return(<View style={styles.container}>
         {
           tries.map((cell, i)=>{
-            console.log(cell,i)
             if(cell.value==='yes'){
               return <Text style={styles.textGreen} key={i}>{cell.letter}</Text>
             }
@@ -58,6 +57,7 @@ const styles = StyleSheet.create({
     text:{
         borderColor:'#313638',
         backgroundColor:'#E8E9EB',
+        margin:3,
         borderWidth:2,
         width:45,
         height:45,
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
       textGreen:{
         borderColor:'#313638',
         backgroundColor:'#069E2D',
+        margin:3,
         borderWidth:2,
         width:45,
         height:45,
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
       textGray:{
         borderColor:'#313638',
         backgroundColor:'#6D676E',
+        margin:3,
         borderWidth:2,
         width:45,
         height:45,
@@ -91,6 +93,7 @@ const styles = StyleSheet.create({
       textYellow:{
         borderColor:'#313638',
         backgroundColor:'#F09D51',
+        margin:3,
         borderWidth:2,
         width:45,
         height:45,

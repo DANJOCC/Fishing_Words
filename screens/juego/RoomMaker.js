@@ -8,15 +8,15 @@ export default function RoomMaker(props){
     
     const dispatch=useDispatch()
 
-    const [time, setTime]=useState('300')
+    const [time, setTime]=useState('300000')
     const [length, setLength]=useState('5')
     const [rounds, setRounds]=useState('3')
     const [tries, setTries]=useState('6')
 
     const TimeOptions=[
-        {label:"5:00", value:"300"},
-        {label:"10:00", value:"600"},
-        {label:"15:00", value:"900"}
+        {label:"5:00", value:"300000"},
+        {label:"10:00", value:"600000"},
+        {label:"15:00", value:"900000"}
     ]
 
     const LengthWordOptions=[

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    time:300,
+    time:300000,
     length:5,
     rounds:3,
     tries:6,
