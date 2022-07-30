@@ -81,7 +81,7 @@ export default function RoomMaker(props){
          text="Iniciar sala" 
          onPress={()=>{
             dispatch(getConfig({time,length,rounds,tries}))
-            props.navigation.navigate('Room')
+            props.navigation.navigate('RoomOwner')
             }}/>
     </View>
   )

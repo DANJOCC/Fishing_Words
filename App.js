@@ -10,8 +10,9 @@ import SingUp from './screens/bouncer/SingUp';
 import Invite from './screens/juego/Invite';
 import MenuGame from './screens/juego/MenuGame';
 import Profile from './screens/juego/Profile';
-import Room from './screens/juego/Room';
+import RoomOwner from './screens/juego/RoomOwner';
 import RoomMaker from './screens/juego/RoomMaker';
+import RoomInvite from './screens/juego/RoomInvite';
 
 const Pages= createNativeStackNavigator()
 
@@ -63,8 +64,8 @@ export default function App() {
           }}
         />
           <Pages.Screen 
-          name='Room'
-          component={Room}
+          name='RoomOwner'
+          component={RoomOwner}
           options={{
             headerShown: false
           }}
@@ -79,6 +80,13 @@ export default function App() {
         <Pages.Screen 
           name='RoomMaker'
           component={RoomMaker}
+          options={{
+            headerShown: false
+          }}
+        />
+         <Pages.Screen 
+          name='RoomInvite'
+          component={RoomInvite}
           options={{
             headerShown: false
           }}

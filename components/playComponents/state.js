@@ -1,14 +1,26 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-export default (solution) => {
+export default () => {
     const roomConfig=useSelector(state=>state.roomConfig)
+    const [solution,setSolution]=useState('')
     const [turn, setTurn]=useState(0)//intento
     const [currentTry, setTry]=useState('')//palabra intentada
     const [tries, setTries]=useState([...Array(Number(roomConfig.tries))])//lista de intentos en forma de array
     const [noTurn, setNoTurn]=useState(false)
     const [rigth, setRigth]=useState(false)//palabra correcta
 
+
+    const restart=()=>{
+        setTurn(0)
+        setTries([...Array(Number(roomConfig.tries))])
+        setNoTurn(false)
+        setRigth(false)
+    }
+
+    const newWord=(solution)=>{
+        setSolution(solution.toLowerCase())
+    }
     const saveTry=(wordArray)=>{
         if(currentTry===solution){
             setRigth(true)
@@ -80,5 +92,5 @@ export default (solution) => {
         
     }
 
-  return {handleKey,wordTried,tries, turn, rigth, currentTry, noTurn}
+  return {handleKey,wordTried,newWord,restart,tries, turn, rigth, currentTry, noTurn}
 }
