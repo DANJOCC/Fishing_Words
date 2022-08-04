@@ -1,5 +1,8 @@
 import { StyleSheet, Text,TouchableOpacity } from "react-native"
 
+
+//Botom personalizado para edicion
+
 const style=StyleSheet.create({
     edit:{
         padding:15,

@@ -27,11 +27,11 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection: 'column',
         marginHorizontal: 30,
-        marginTop:230
+        marginTop:50
     },
     text: {
         fontSize: 50,
-        marginVertical: 50,
+        marginVertical: 100,
         textAlign: 'center',
         color:'#313638',
     },

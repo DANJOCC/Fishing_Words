@@ -8,10 +8,13 @@ export default function RoomMaker(props){
     
     const dispatch=useDispatch()
 
-    const [time, setTime]=useState('300000')
-    const [length, setLength]=useState('5')
-    const [rounds, setRounds]=useState('3')
-    const [tries, setTries]=useState('6')
+    const [time, setTime]=useState('300000') //tiempo en milis
+    const [length, setLength]=useState('5') //largo de letras
+    const [rounds, setRounds]=useState('3') //Rounds del juego
+    const [tries, setTries]=useState('6') //intentos por palabras
+
+
+    //Opciones de salas
 
     const TimeOptions=[
         {label:"5:00", value:"300000"},

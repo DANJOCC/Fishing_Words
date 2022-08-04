@@ -1,3 +1,5 @@
+//funcion de formato de timer
+
 export default function formatTime(time){
     let s=Math.floor(time/1000)
     let min=Math.floor(s/60)

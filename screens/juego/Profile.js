@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
 },
   image:{
     margin:10,
-    width:200,
-    height:200
+    width:150,
+    height:150
   },
   text:{
     fontSize:40,
-    margin:40
+
   }
 })

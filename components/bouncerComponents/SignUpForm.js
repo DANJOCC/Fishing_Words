@@ -12,7 +12,7 @@ export default function SignUpForm(props) {
   const [password, setPassword]=useState('')
   const [confirmPassword, setConfirmPassword]=useState('')
   const [tlf, setTlf]=useState('')
-  const phoneInput = useRef(undefined);
+  const phoneInput = useRef(undefined); // referencia del componente PhoneInput
   const [user,setUser]=useState({
     username:false,
     password:false,
@@ -103,7 +103,7 @@ export default function SignUpForm(props) {
       
         onPress={
           ()=>{
-            request.singUp({username,password,tlf:user.tlf})
+            request.singUp({username,password,tlf})
             .then(response=>{
               response.status===201 ?
 

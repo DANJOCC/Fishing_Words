@@ -16,12 +16,23 @@ import RoomInvite from './screens/juego/RoomInvite';
 
 const Pages= createNativeStackNavigator()
 
+//Colores de la app
 //orange soda:#F06543
 //platinum:#E8E9EB
 //alabaster:#E0DFD5
 //onyx:#313638
 //sandy brown:#F09D51
 
+
+//Bouncer ----> Menu de login y signUp
+//Login ----> Login
+//SignUp ----> Registro
+//MenuGame ----> Menu del juego
+//Profile ----> Vista del perfil
+//RoomOwner ----> Vista del juego (Creador de sala)
+//Invite ----> Invitar personas
+//RoomMaker ----> Opciones para crear sala del juego
+//RoomInvite ----> Vista del juego (Invitados)
 
 export default function App() {
   return (

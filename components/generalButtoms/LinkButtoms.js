@@ -1,6 +1,9 @@
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
 
+
+//Boton personalizado para navegar en la app con funcion incluida
+
 const styles = StyleSheet.create({
     link:{
         paddingHorizontal: 20,

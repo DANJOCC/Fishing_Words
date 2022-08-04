@@ -15,6 +15,9 @@ export default function LoginForm(props) {
         username:false,
         password:false,
       })
+      
+
+    //constantes para evaluar la validez de los imputs
 
     const { isFieldInError, getErrorsInField, isFormValid } = useValidation({
         fieldsRules: {
@@ -24,16 +27,23 @@ export default function LoginForm(props) {
         state: { username, password}
       });
 
+      //Manejar evento de toque del input
+
     const handleTouchChanges=(field)=>{
         setUser({
           ...user,
           [field]:true
         })
       }
+
+
+    //guardar datos devuelta por el server  
     
     const save=(data)=>{
       dispatch(getAuth(data))
     }
+
+    //manejar cambios en inputs
 
     const handleChanges=(name, value, flag)=>{
         switch (name) {

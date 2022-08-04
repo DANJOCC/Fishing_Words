@@ -1,5 +1,8 @@
 import { Alert } from "react-native"
 
+//Boton personalizado para alertas con navegacion incluida
+
+
 const alertCustomButtoms={
     alertLink:(flag,msg,navigation, link)=>{
         Alert.alert(

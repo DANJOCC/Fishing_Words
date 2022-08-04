@@ -80,6 +80,10 @@ export default function RoomInvite() {
             return arrayPlayer
           })}
         })
+
+        socket.on('endGame', (end)=>{
+          setEndGame(true)
+        })
   
         socket.on('state', (state)=>{
             dispatch(getConfig(state.config))

@@ -2,6 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 export default function Row({wordTried,tries,length}) {
+  
+
+  //colorear celdas segun aciertos
 
   if(tries){
     return(<View style={styles.container}>
@@ -21,6 +24,10 @@ export default function Row({wordTried,tries,length}) {
         }
     </View>)
   }
+
+
+  //Crear celdas con letras
+
   if(wordTried){
     let letters=wordTried.split('')
 
@@ -36,6 +43,8 @@ export default function Row({wordTried,tries,length}) {
       }
     </View>)
   }
+
+  //crear celdas vacias
 
   return (
     <View style={styles.container}>

@@ -11,17 +11,17 @@ export default () => {
     const [rigth, setRigth]=useState(false)//palabra correcta
 
 
-    const restart=()=>{
+    const restart=()=>{//reiniciar valores por ronda
         setTurn(0)
         setTries([...Array(Number(roomConfig.tries))])
         setNoTurn(false)
         setRigth(false)
     }
 
-    const newWord=(solution)=>{
+    const newWord=(solution)=>{//nueva palabra por ronda
         setSolution(solution.toLowerCase())
     }
-    const saveTry=(wordArray)=>{
+    const saveTry=(wordArray)=>{//guardar intentos
         if(currentTry===solution){
             setRigth(true)
         }
@@ -42,7 +42,7 @@ export default () => {
 
     }    
 
-    const wordTried=()=>{
+    const wordTried=()=>{//confirmar aciertos en palabra intentada y validar
 
         if(turn == roomConfig.tries){
             console.log('you use all your tries')
@@ -53,9 +53,11 @@ export default () => {
             return
         }
         const solutionArray=[...solution]
-        const wordArray=[...currentTry].map((char)=>{
+        const wordArray=[...currentTry].map((char)=>{//separar palabra en letras
             return {letter:char,value:'no'}
         })
+
+        //confirmar aciertos
 
         wordArray.forEach((char,i)=>{
             if(solutionArray[i]===char.letter){
@@ -74,7 +76,7 @@ export default () => {
         saveTry(wordArray)
     }
 
-    const handleKey=(value)=>{
+    const handleKey=(value)=>{//Confirmar y validar caracter ingresado
 
         if(value==='Backspace'){
             setTry((last)=>{

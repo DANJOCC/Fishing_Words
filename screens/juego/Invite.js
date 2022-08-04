@@ -42,6 +42,8 @@ export default function Invite(props) {
         
     }
 
+    //Validacion de la capacidad del dispositivo para enviar mensajes
+
     const isAvailableToSendSms = async ()=>{
         const Available= await SMS.isAvailableAsync()
 

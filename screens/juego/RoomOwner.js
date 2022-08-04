@@ -82,6 +82,10 @@ export default function RoomOwner() {
         })}
       })
 
+      socket.on('endGame', (end)=>{
+        setEndGame(true)
+      })
+
       return ()=>{
           socket.disconnect()
       }
