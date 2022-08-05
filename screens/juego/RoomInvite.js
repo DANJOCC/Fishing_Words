@@ -10,7 +10,7 @@ import { getConfig } from '../../features/roomConfig';
 import CustomButtoms from '../../components/generalButtoms/LinkButtoms';
 export default function RoomInvite() {
 
-    const [isConnected, setIsConnected] = useState(false);//estado de conexion
+   const [wins, setWins]=useState(0)//victorias
 
     const dispatch=useDispatch()
 
@@ -63,7 +63,11 @@ export default function RoomInvite() {
 
     }
 
-
+    useEffect(()=>{//transmitir fin de juego
+      if(endGame){
+        socket.emit('endGame')
+      }
+  },[endGame])
 
  
     useEffect(()=>{
@@ -73,16 +77,21 @@ export default function RoomInvite() {
   
         socket.on('newUser',(player)=>{
         
-  
           if(players.length<2){
-            setPlayer((players)=>{
-            let arrayPlayer=[...players, player]
+            setPlayer(()=>{
+            let arrayPlayer= player
             return arrayPlayer
           })}
         })
 
-        socket.on('endGame', (end)=>{
+        socket.on('endGame', ()=>{
           setEndGame(true)
+          socket.emit('updateRanking',{
+            username:user.username,
+            newVictorie:wins,
+            letters:roomConfig.length,
+            rounds:roomConfig.rounds
+          })
         })
   
         socket.on('state', (state)=>{
@@ -101,23 +110,23 @@ export default function RoomInvite() {
   useEffect(()=>{//vigilar estado de juego e indicadores
 
     if(rigth){
-      console.log('papi ganaste')
+      setWins((win)=>{
+        return win+1
+      })
       nextRound()
     }
 
     if(turn==roomConfig.tries){
-      console.log('se acabaron las oportunidades')
       nextRound()
     }
 
     if(timer==0){
-      console.log('tiempo Fuera')
       nextRound()
     }
    
   },[rigth,turn,timer])
 
-  useEffect(()=>{//vigilar estado de juego
+  useEffect(()=>{//vigilar numero de jugadores e iniciar juego
     if(players.length==2){
       setStartGame(true)
     }
@@ -170,19 +179,16 @@ export default function RoomInvite() {
         return <Text key={i}>{p}</Text>
       })}
 
-      <Text>connected: {isConnected? 'yes': 'no'}</Text>
 
        <CustomButtoms.NormalLinkButtom
          text="Desconectarse" 
          onPress={()=>{
-          setIsConnected(false)
           socket.emit('exit')}}/>
 
 
         {!startGame && <CustomButtoms.NormalLinkButtom
          text="Unirse" 
          onPress={()=>{
-          setIsConnected(true)
           socket.emit('connected', ({id: room}))}}/>}
 
     </View>

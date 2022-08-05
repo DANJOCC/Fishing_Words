@@ -9,8 +9,6 @@ import formatTime from '../../services/timeControl.services';
 import CustomButtoms from '../../components/generalButtoms/LinkButtoms';
 export default function RoomOwner() {
 
-    const [isConnected, setIsConnected] = useState(false);//estado de conexion
-
     const [words, setWords]=useState([])//palabras para adivinar
 
     const {
@@ -24,7 +22,12 @@ export default function RoomOwner() {
       rigth,      //indicador palabra correcta
       currentTry}=useStateGame('')//estado general del juego
 
+
+    const [wins, setWins]=useState(0)//victorias
+
     const roomConfig=useSelector(state=>state.roomConfig)//configuracion de la sala
+
+    const user=useSelector(state=>state.profile)
 
     const [timer, setTimer]=useState(Number(roomConfig.time))//tiempo de sala
 
@@ -55,10 +58,13 @@ export default function RoomOwner() {
       setOutTime(false)//reinicio de tiempo fuera
 
       next+1<roomConfig.rounds?newWord(words[next+1]):setEndGame(true) // siguiente palabra o fin de juego
-
     }
 
-
+  useEffect(()=>{//transmitir fin de juego
+      if(endGame){
+        socket.emit('endGame')
+      }
+  },[endGame])
 
   useEffect(()=>{
       socket.connect()//conectar socket a server
@@ -76,14 +82,21 @@ export default function RoomOwner() {
       socket.on('newUser',(player)=>{
       
         if(players.length<2){
-          setPlayer((players)=>{
-          let arrayPlayer=[...players, player]
+          setPlayer(()=>{
+          let arrayPlayer=player
           return arrayPlayer
         })}
+
       })
 
-      socket.on('endGame', (end)=>{
+      socket.on('endGame', ()=>{
         setEndGame(true)
+        socket.emit('updateRanking',{
+          username:user.username,
+          newVictorie:wins,
+          letters:roomConfig.length,
+          rounds:roomConfig.rounds
+        })
       })
 
       return ()=>{
@@ -93,23 +106,23 @@ export default function RoomOwner() {
   useEffect(()=>{//vigilar estado de juego e indicadores
 
     if(rigth){
-      console.log('papi ganaste')
+      setWins((win)=>{
+        return win+1
+      })
       nextRound()
     }
 
     if(turn==roomConfig.tries){
-      console.log('se acabaron las oportunidades')
       nextRound()
     }
 
     if(timer==0){
-      console.log('tiempo Fuera')
       nextRound()
     }
    
   },[rigth,turn,timer])
 
-  useEffect(()=>{//vigilar estado de juego
+  useEffect(()=>{//vigilar numero de jugadores e iniciar juego
     if(players.length==2){
       setStartGame(true)
     }
@@ -118,7 +131,6 @@ export default function RoomOwner() {
   useEffect(()=>{
     return () => clearInterval(interval.current);
   },[])
-
 
   useEffect(()=>{//vigilar estado del timer
 
@@ -131,8 +143,6 @@ export default function RoomOwner() {
       clearInterval(interval.current);
 
     }
-
-   
    },[rigth,noTurn,outTime,startGame,endGame])
 
   return (
@@ -156,18 +166,15 @@ export default function RoomOwner() {
         return <Text key={i}>{p}</Text>
       })}
 
-      <Text>connected: {isConnected? 'yes': 'no'}</Text>
 
       <CustomButtoms.NormalLinkButtom
          text="Desconectarse" 
          onPress={()=>{
-          setIsConnected(false)
           socket.emit('exit')}}/>
 
       {!startGame && <CustomButtoms.NormalLinkButtom
          text="Iniciar Juego" 
          onPress={()=>{
-          setIsConnected(true)
           socket.emit('connected', ({config: roomConfig, owner:true}))}}/>}
 
     </View>

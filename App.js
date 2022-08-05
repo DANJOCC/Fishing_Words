@@ -20,7 +20,7 @@ const Pages= createNativeStackNavigator()
 //orange soda:#F06543
 //platinum:#E8E9EB
 //alabaster:#E0DFD5
-//onyx:#313638
+//onyx:#6A5D7B
 //sandy brown:#F09D51
 
 
